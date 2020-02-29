@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-//import Header from './Header.js';
+import Header from './Header.js';
+import Footer from './Footer.js';
 
 
 class App extends Component {
@@ -11,7 +12,6 @@ class App extends Component {
       art: [],
       randomArt: {},
     }
-    //console.log('this state art:', this.state.art);
   }
 
   componentDidMount(){
@@ -22,8 +22,8 @@ class App extends Component {
       params: {
         key: `rDVuMIWC`,
         format:'json',
-        q: 'person',
-        ps: '10', //later update to 100 for the number of objects to be returned
+        q: 'portrait',
+        ps: '200', 
       }
     }).then((response) =>{
       // reassigning response to be more specific to clean up the data
@@ -32,46 +32,50 @@ class App extends Component {
       // setting a variable to hold the array of objects returned from API call
       // const artArray = response;
       //console.log('art array:', artArray);
-
-      //randomly selecting one object from the array
       
+      // updating state with the response from API call
       this.setState({
         art: response,
       })
-      
-      // removing the selected art object from the array
-      // const removeArtObject = (index) => {
-      //   artArray.splice(index, 1);
-      // }
-
+      console.log(response);
     })
   }
 
+  // on click of button, get a random piece of art from API
   handleClick = () => {
     const randomArtObject = this.state.art[Math.floor(Math.random() * this.state.art.length)];
-    console.log('randomly selected art object from array:', typeof randomArtObject);
+    //console.log('randomly selected art object from array:', typeof randomArtObject);
 
     this.setState({
-
       randomArt: randomArtObject,
     })
-
   }
-  
+
   render() {
-    console.log('this.state.art in render',this.state.art);
-    console.log('this.state.randomArt in render',this.state.randomArt);
+    //console.log('this.state.art in render',this.state.art);
+    //console.log('this.state.randomArt in render',this.state.randomArt);
     //console.log('image url:', this.state.randomArt.webImage.url);
     return (
       <div>
-        <h1>blah blah blah</h1>
-          <button onClick={this.handleClick}>get art</button>
-        
-              <div>
-          <img src={this.state.randomArt.webImage !== undefined ? this.state.randomArt.webImage.url : '' } alt={this.state.randomArt.longTitle} />
-                <button>new image</button>
-                <button>reset</button>
-              </div>
+        <Header />
+          <div className="introArea wrapper">
+            <p>Create your own reappraisel of art, history, and culture.</p>
+            <button id="getArtButton" onClick={this.handleClick}>get art</button>
+          </div>
+          <div className="flexParent wrapper">
+            {/* <canvas id="canvas" width="1024" height="1024">
+
+            </canvas> */}
+            <div className="flexChild">
+              <input type="text" placeholder="type your text here" id="customText" />
+              <button>reset</button>
+            </div>
+            <div className="imageContainer">
+              <img src={this.state.randomArt.webImage !== undefined ? this.state.randomArt.webImage.url : '' } alt={this.state.randomArt.longTitle} id="memeImage" />
+            </div>
+            
+          </div>
+          <Footer />
       </div>
     )
   }
@@ -79,4 +83,5 @@ class App extends Component {
 
 export default App;
 
-// if i'm going to get rid of the button then
+// if i'm going to get rid of the button then have ternary operator that says if webImage is undefined then show nothing or "loading" and then move the stuff in the handleClick method to the .then
+// alternately COULD have an anonymous callback function after setting state with the random art piece to make sure that things happen before the page load
