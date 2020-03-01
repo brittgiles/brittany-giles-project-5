@@ -33,8 +33,14 @@ class App extends Component {
       // updating state with the response from API call
       this.setState({
         art: response,
+      }, () => {
+          const randomArtObject = this.state.art[Math.floor(Math.random() * this.state.art.length)];
+
+          this.setState({
+            randomArt: randomArtObject,
+          })
       })
-      //console.log(response);
+      // console.log(response);
     })
   }
 
@@ -44,14 +50,6 @@ class App extends Component {
 
     this.setState({
       randomArt: randomArtObject,
-    }, () => {
-      // const canvas = document.getElementById('canvas');
-      // const canvasImage = document.getElementById('memeImage');
-      // const ctx = canvas.getContext('2d');
-
-      // ctx.drawImage(canvasImage, 0, 0, 100, 100);
-      //console.log(canvasImage);
-      //ctx.drawImage(canvasImage);
     })
   }
 
@@ -61,14 +59,14 @@ class App extends Component {
         <Header />
           <div className="introArea wrapper">
             <p>Create your own reappraisel of art, history, and culture.</p>
-            <button id="getArtButton" onClick={this.handleClick}>get art</button>
+            <button id="getArtButton" onClick={this.handleClick}>new image</button>
           </div>
           <div className="flexParent wrapper">
             <div className="flexChild">
               <input type="text" placeholder="type your text here" id="customText" />
               <button>reset</button>
             </div>
-          <Canvas src={this.state.randomArt.webImage !== undefined ? this.state.randomArt.webImage.url : ''} alt={this.state.randomArt.longTitle} id={'memeImage'} />
+            {this.state.randomArt.webImage && <Canvas src={this.state.randomArt.webImage.url} alt={this.state.randomArt.longTitle} id={'memeImage'} /> }
           </div>
           <Footer />
       </div>
