@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Header from './Header.js';
 import Footer from './Footer.js';
+import Canvas from './Canvas.js';
 
 
 class App extends Component {
@@ -28,33 +29,33 @@ class App extends Component {
     }).then((response) =>{
       // reassigning response to be more specific to clean up the data
       response = response.data.artObjects;
-
-      // setting a variable to hold the array of objects returned from API call
-      // const artArray = response;
-      //console.log('art array:', artArray);
       
       // updating state with the response from API call
       this.setState({
         art: response,
       })
-      console.log(response);
+      //console.log(response);
     })
   }
 
   // on click of button, get a random piece of art from API
   handleClick = () => {
     const randomArtObject = this.state.art[Math.floor(Math.random() * this.state.art.length)];
-    //console.log('randomly selected art object from array:', typeof randomArtObject);
 
     this.setState({
       randomArt: randomArtObject,
+    }, () => {
+      // const canvas = document.getElementById('canvas');
+      // const canvasImage = document.getElementById('memeImage');
+      // const ctx = canvas.getContext('2d');
+
+      // ctx.drawImage(canvasImage, 0, 0, 100, 100);
+      //console.log(canvasImage);
+      //ctx.drawImage(canvasImage);
     })
   }
 
   render() {
-    //console.log('this.state.art in render',this.state.art);
-    //console.log('this.state.randomArt in render',this.state.randomArt);
-    //console.log('image url:', this.state.randomArt.webImage.url);
     return (
       <div>
         <Header />
@@ -63,17 +64,11 @@ class App extends Component {
             <button id="getArtButton" onClick={this.handleClick}>get art</button>
           </div>
           <div className="flexParent wrapper">
-            {/* <canvas id="canvas" width="1024" height="1024">
-
-            </canvas> */}
             <div className="flexChild">
               <input type="text" placeholder="type your text here" id="customText" />
               <button>reset</button>
             </div>
-            <div className="imageContainer">
-              <img src={this.state.randomArt.webImage !== undefined ? this.state.randomArt.webImage.url : '' } alt={this.state.randomArt.longTitle} id="memeImage" />
-            </div>
-            
+          <Canvas src={this.state.randomArt.webImage !== undefined ? this.state.randomArt.webImage.url : ''} alt={this.state.randomArt.longTitle} id={'memeImage'} />
           </div>
           <Footer />
       </div>
