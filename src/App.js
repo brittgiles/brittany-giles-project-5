@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Canvas from './Canvas.js';
+import firebase from './firebaseApp';
 
 
 class App extends Component {
@@ -12,10 +13,14 @@ class App extends Component {
     this.state={
       art: [],
       randomArt: {},
+      userInput: '',
+      caption: '',
+      dbKey: '',
     }
   }
 
   componentDidMount(){
+    // axios call for image data from API
     axios({
       method: 'GET',
       url: 'https://www.rijksmuseum.nl/api/en/collection',
@@ -24,7 +29,9 @@ class App extends Component {
         key: `rDVuMIWC`,
         format:'json',
         q: 'portrait',
-        ps: '200', 
+        ps: '200',
+        imgonly: true,
+
       }
     }).then((response) =>{
       // reassigning response to be more specific to clean up the data
@@ -42,6 +49,34 @@ class App extends Component {
       })
       // console.log(response);
     })
+
+    const dbRef = firebase.database().ref();
+
+    // getting and saving the response from the Firebase database
+    dbRef.on('value', (caption) => {
+      const captionFromDb = caption.val();
+      console.log(captionFromDb);
+
+      // empty array to hold the caption text
+      // const stateToBeSet = [];
+      
+
+      // pulling the caption text out of the object and pushing to the empty array
+      for (let key in captionFromDb) {
+        this.setState({
+          caption: captionFromDb[key],
+          dbKey: key,
+        });
+      }
+
+      // converting the array from the user input to a string
+      // const stateToBeSetString = stateToBeSet.toString();
+      // console.log('state to be set string',stateToBeSetString);
+      // this.setState({
+      //   caption: stateToBeSetString,
+      // })
+    })
+
   }
 
   // on click of button, get a random piece of art from API
@@ -51,9 +86,46 @@ class App extends Component {
     this.setState({
       randomArt: randomArtObject,
     })
+    //console.log(randomArtObject);
+  }
+
+  // listens for change in the user input text box
+  handleChange = (e) => {
+
+    this.setState({
+      userInput: e.target.value,
+    })
+  }
+
+  handleFormSubmit = (e) => {
+    // preventing the form from refreshing the page
+    e.preventDefault();
+
+    // creating a reference to the firebase database
+    const dbRef = firebase.database().ref();
+
+    dbRef.push(this.state.userInput);
+
+    this.setState({
+      userInput: '',
+    })
+
+  }
+
+  resetPage = (dbKey) => {
+    const dbRef = firebase.database().ref();
+
+    dbRef.child(dbKey).remove();
+    
+    this.setState({
+      caption: '',
+      dbKey: '',
+    })
   }
 
   render() {
+    //console.log(this.state.userInput);
+    // console.log('user input: ', this.state.caption);
     return (
       <div>
         <Header />
@@ -63,11 +135,19 @@ class App extends Component {
           </div>
           <div className="flexParent wrapper">
             <div className="flexChild">
-              <input type="text" placeholder="type your text here" id="customText" />
-              <button>reset</button>
+              {/* setting value of this.state.userInput for accessibility */}
+              <form action="submit" onSubmit={this.handleFormSubmit}>
+                <input type="text" placeholder="type your text here" id="customText" onChange={this.handleChange} value={this.state.userInput}  />
+                <button type="submit">submit</button>
+              </form>
+            <button type="reset" onClick={() => { this.resetPage(this.state.dbKey) }}>reset</button>
             </div>
-            {this.state.randomArt.webImage && <Canvas src={this.state.randomArt.webImage.url} alt={this.state.randomArt.longTitle} id={'memeImage'} /> }
+            <div className="memeCaption">{this.state.caption}</div>
+            {this.state.randomArt.webImage && <Canvas src={this.state.randomArt.webImage.url} alt={this.state.randomArt.longTitle} id={'memeImage'} userCaption={this.state.caption} /> }
+            
+            {/* <button type="reset" onClick={() => {this.resetPage()}}>reset</button> */}
           </div>
+
           <Footer />
       </div>
     )

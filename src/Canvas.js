@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 //refactor into canvas, pass input text as props
 class Canvas extends Component {
     constructor(props){
-        super(props)
+        super(props);
+        //console.log('props in canvas constructor',this.props);
     }
 
     // componentDidUpdate(){
@@ -24,6 +25,7 @@ class Canvas extends Component {
         const canvas = this.refs.canvas;
         const ctx = canvas.getContext('2d');
         const img = this.refs.img;
+        //const userInputValue = this.state.userInputValue
         
         img.onload = () => {
             const imgWidth = img.naturalWidth * 0.3;
@@ -33,6 +35,10 @@ class Canvas extends Component {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             // draws the random image on the canvas
             ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+            // ctx.font = "30px Arial";
+            // ctx.textAlign = "center";
+            //ctx.fillText(this.state.userInputValue, 10, 50);
+            //console.log('caption in canvas component', props.userCaption);
         }
     }
 
@@ -41,8 +47,22 @@ class Canvas extends Component {
         const {
             src,
             alt,
-            id
+            id, 
+            //userCaption
         } = this.props
+
+        //console.log('caption in canvas render', userCaption);
+
+        // const test = this.refs.canvas;
+        // console.log('this is the canvas', test)
+        // const ctx = canvas.getContext('2d');
+        
+        // userCaption.onload = () => {
+        //     ctx.font = "30px Arial";
+        //     ctx.textAlign = "center";
+        //     ctx.fillText(userCaption, 10, 50);
+        // }
+
 
         return (
             <div>
