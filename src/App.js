@@ -6,6 +6,7 @@ import Canvas from './Canvas.js';
 import firebase from './firebaseApp';
 
 
+
 class App extends Component {
   constructor(){
     super();
@@ -31,7 +32,6 @@ class App extends Component {
         q: 'portrait',
         ps: '200',
         imgonly: true,
-
       }
     }).then((response) =>{
       // reassigning response to be more specific to clean up the data
@@ -47,36 +47,22 @@ class App extends Component {
             randomArt: randomArtObject,
           })
       })
-      // console.log(response);
     })
 
     const dbRef = firebase.database().ref();
-
     // getting and saving the response from the Firebase database
     dbRef.on('value', (caption) => {
       const captionFromDb = caption.val();
-      console.log(captionFromDb);
-
-      // empty array to hold the caption text
-      // const stateToBeSet = [];
-      
 
       // pulling the caption text out of the object and pushing to the empty array
       for (let key in captionFromDb) {
+        // passing the text and the key to state
         this.setState({
           caption: captionFromDb[key],
           dbKey: key,
         });
       }
-
-      // converting the array from the user input to a string
-      // const stateToBeSetString = stateToBeSet.toString();
-      // console.log('state to be set string',stateToBeSetString);
-      // this.setState({
-      //   caption: stateToBeSetString,
-      // })
     })
-
   }
 
   // on click of button, get a random piece of art from API
@@ -86,17 +72,16 @@ class App extends Component {
     this.setState({
       randomArt: randomArtObject,
     })
-    //console.log(randomArtObject);
   }
 
   // listens for change in the user input text box
   handleChange = (e) => {
-
     this.setState({
       userInput: e.target.value,
     })
   }
 
+  // on form submit
   handleFormSubmit = (e) => {
     // preventing the form from refreshing the page
     e.preventDefault();
@@ -105,18 +90,18 @@ class App extends Component {
     const dbRef = firebase.database().ref();
 
     dbRef.push(this.state.userInput);
-
+    // on form submit, empty the user input
     this.setState({
       userInput: '',
     })
-
   }
 
-  resetPage = (dbKey) => {
+  // on click of reset button
+  resetButton = (dbKey) => {
     const dbRef = firebase.database().ref();
-
+    // remove input from firebase
     dbRef.child(dbKey).remove();
-    
+    // reset state to empty string
     this.setState({
       caption: '',
       dbKey: '',
@@ -124,30 +109,31 @@ class App extends Component {
   }
 
   render() {
-    //console.log(this.state.userInput);
-    // console.log('user input: ', this.state.caption);
     return (
       <div>
         <Header />
-          <div className="introArea wrapper">
-            <p>Create your own reappraisel of art, history, and culture.</p>
-            <button id="getArtButton" onClick={this.handleClick}>new image</button>
-          </div>
-          <div className="flexParent wrapper">
+          <div className="contentContainer wrapper">
             <div className="flexChild">
               {/* setting value of this.state.userInput for accessibility */}
               <form action="submit" onSubmit={this.handleFormSubmit}>
-                <input type="text" placeholder="type your text here" id="customText" onChange={this.handleChange} value={this.state.userInput}  />
-                <button type="submit">submit</button>
+                {/* create for SR only label */}
+                <label htmlFor=""></label>
+                <input type="text" placeholder="Type your caption here" id="customText" onChange={this.handleChange} value={this.state.userInput}  />
+                <div className="buttonContainer">
+                  <button type="submit">Submit</button> 
+                {this.state.dbKey &&
+                  <button type="reset" onClick={() => { this.resetButton(this.state.dbKey) }}>Reset</button>}
+                </div>
               </form>
-            <button type="reset" onClick={() => { this.resetPage(this.state.dbKey) }}>reset</button>
+              {/* only display reset button when there is something in the database */}
+              <button id="getArtButton" onClick={this.handleClick}>New Image</button>
             </div>
-            <div className="memeCaption">{this.state.caption}</div>
-            {this.state.randomArt.webImage && <Canvas src={this.state.randomArt.webImage.url} alt={this.state.randomArt.longTitle} id={'memeImage'} userCaption={this.state.caption} /> }
+            <div className="canvasContainer">
             
-            {/* <button type="reset" onClick={() => {this.resetPage()}}>reset</button> */}
+              {this.state.caption && <div className="memeCaption">{this.state.caption}</div>}
+              {this.state.randomArt.webImage && <Canvas src={this.state.randomArt.webImage.url} alt={this.state.randomArt.longTitle} id={'memeImage'} /> }
+            </div>
           </div>
-
           <Footer />
       </div>
     )
@@ -155,6 +141,3 @@ class App extends Component {
 }
 
 export default App;
-
-// if i'm going to get rid of the button then have ternary operator that says if webImage is undefined then show nothing or "loading" and then move the stuff in the handleClick method to the .then
-// alternately COULD have an anonymous callback function after setting state with the random art piece to make sure that things happen before the page load

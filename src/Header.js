@@ -4,7 +4,10 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <h1>meme history</h1>
+        <div className="wrapper">
+          <h1>Memeseum</h1>
+          <p>Create your own reappraisel of art, history, and culture.</p>
+        </div>
       </header>
     );
   }
