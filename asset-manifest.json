@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/brittany-giles-project-5/static/css/main.5d673707.chunk.css",
+    "main.js": "/brittany-giles-project-5/static/js/main.17342992.chunk.js",
+    "main.js.map": "/brittany-giles-project-5/static/js/main.17342992.chunk.js.map",
+    "runtime-main.js": "/brittany-giles-project-5/static/js/runtime-main.4b0b6f52.js",
+    "runtime-main.js.map": "/brittany-giles-project-5/static/js/runtime-main.4b0b6f52.js.map",
+    "static/js/2.5e48e656.chunk.js": "/brittany-giles-project-5/static/js/2.5e48e656.chunk.js",
+    "static/js/2.5e48e656.chunk.js.map": "/brittany-giles-project-5/static/js/2.5e48e656.chunk.js.map",
+    "index.html": "/brittany-giles-project-5/index.html",
+    "precache-manifest.47e0b15ffaaf6b425fb6c81d176157f5.js": "/brittany-giles-project-5/precache-manifest.47e0b15ffaaf6b425fb6c81d176157f5.js",
+    "service-worker.js": "/brittany-giles-project-5/service-worker.js",
+    "static/css/main.5d673707.chunk.css.map": "/brittany-giles-project-5/static/css/main.5d673707.chunk.css.map",
+    "static/js/2.5e48e656.chunk.js.LICENSE.txt": "/brittany-giles-project-5/static/js/2.5e48e656.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/brittany-giles-project-5/static/media/paperTexture.1002c4fd.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4b0b6f52.js",
+    "static/js/2.5e48e656.chunk.js",
+    "static/css/main.5d673707.chunk.css",
+    "static/js/main.17342992.chunk.js"
+  ]
+}
