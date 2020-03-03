@@ -32,8 +32,9 @@ class Canvas extends Component {
         return (
             <div>
                 <div className="imageContainer">
-                    <canvas ref="canvas" id="canvas" width="600" height="600">
-                        Sorry, HTML canvas is not supported on your browser. Try Firefox or Chrome.
+                    <canvas ref="canvas" id="canvas" width="600" height="600" >
+                         {/* width="600" height="600" */}
+                       Sorry, HTML canvas is not supported on your browser. Try Firefox or Chrome.
                     </canvas>
                     {/* add aria hidden */}
                 </div>

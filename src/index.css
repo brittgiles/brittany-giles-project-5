@@ -84,6 +84,7 @@ h1 {
 }
 
 /* laying out content of main section */
+
 form,
 .contentContainer {
   display: flex;
@@ -105,7 +106,7 @@ form,
 .flexChild {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 460px;
   margin-bottom: 30px;
 }
 
@@ -151,3 +152,48 @@ footer {
 }
 
 /* media queries start here */
+
+@media (max-width: 500px) {
+  .flexChild,
+  input {
+    width: 350px;
+  }
+
+  button {
+    width: 170px
+  }
+
+  #canvas {
+    width: 400px;
+  }
+}
+
+@media (max-width: 440px) {
+  h1 {
+    font-size: 5.5rem;
+  }
+
+  #canvas {
+    width: 350px;
+  }
+}
+
+@media (max-width: 370px) {
+  h1 {
+    font-size: 4.5rem;
+  }
+
+  .flexChild,
+  input {
+    width: 300px;
+  }
+
+  button {
+    width: 130px;
+    font-size: 1.5rem;
+  }
+
+  #canvas {
+    width: 300px;
+  }
+}
