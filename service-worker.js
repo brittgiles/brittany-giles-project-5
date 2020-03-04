@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/brittany-giles-project-5/precache-manifest.47e0b15ffaaf6b425fb6c81d176157f5.js"
+  "/brittany-giles-project-5/precache-manifest.ad0571fe7160fb4f9ed40d263299cf4c.js"
 );
 
 self.addEventListener('message', (event) => {

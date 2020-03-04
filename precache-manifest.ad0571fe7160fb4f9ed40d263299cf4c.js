@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2b7245c61910dfced83d29d98a1d5729",
+    "revision": "dd5b7d8d6013937b0f8cea05e7d8c45a",
     "url": "/brittany-giles-project-5/index.html"
   },
   {
-    "revision": "6de98c81cbc6d900bc77",
-    "url": "/brittany-giles-project-5/static/css/main.5d673707.chunk.css"
+    "revision": "a252ec79a625b2896153",
+    "url": "/brittany-giles-project-5/static/css/main.7d910a10.chunk.css"
   },
   {
     "revision": "4e3a40ade1e79e7826e6",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/brittany-giles-project-5/static/js/2.5e48e656.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6de98c81cbc6d900bc77",
-    "url": "/brittany-giles-project-5/static/js/main.17342992.chunk.js"
+    "revision": "a252ec79a625b2896153",
+    "url": "/brittany-giles-project-5/static/js/main.39a2d6a0.chunk.js"
   },
   {
     "revision": "3847140fc508acc39869",
