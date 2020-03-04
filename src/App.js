@@ -5,7 +5,7 @@ import Footer from './Footer.js';
 import Canvas from './Canvas.js';
 import firebase from './firebaseApp';
 
-
+//i've left my comments in to explain my code and for my own reference! have removed comments that aren't related to that
 
 class App extends Component {
   constructor(){
@@ -83,7 +83,7 @@ class App extends Component {
 
   // on form submit
   handleFormSubmit = (e) => {
-    // preventing the form from refreshing the page
+    // prevent the form from refreshing the page
     e.preventDefault();
 
     // creating a reference to the firebase database
@@ -117,7 +117,7 @@ class App extends Component {
               {/* setting value of this.state.userInput for accessibility */}
               <form action="submit" onSubmit={this.handleFormSubmit}>
                 {/* create for SR only label */}
-                <label htmlFor=""></label>
+                <label for="customText" className="visuallyHidden">Type your meme text here:</label>
                 <input type="text" placeholder="Type your caption here" id="customText" onChange={this.handleChange} value={this.state.userInput}  />
                 <div className="buttonContainer">
                   <button type="submit">Submit</button> 

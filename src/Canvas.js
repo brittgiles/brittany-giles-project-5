@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class Canvas extends Component {
     constructor(props){
         super(props);
+        // react is giving a warning that this is a useless constructor but it doesn't work without it
     }
 
     componentDidMount(){
@@ -32,11 +33,10 @@ class Canvas extends Component {
         return (
             <div>
                 <div className="imageContainer">
-                    <canvas ref="canvas" id="canvas" width="600" height="600" >
-                         {/* width="600" height="600" */}
+                    {/* canvas element that hidden image below gets painted on */}
+                    <canvas ref="canvas" id="canvas" width="600" height="600" tabindex="0" aria-label={alt}>
                        Sorry, HTML canvas is not supported on your browser. Try Firefox or Chrome.
                     </canvas>
-                    {/* add aria hidden */}
                 </div>
                 {/* adding class of hidden to the image div so the image can be passed to the canvas, but the image doesn't show up on the page twice  */}
                 <div className="hidden">
